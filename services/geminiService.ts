@@ -1,13 +1,12 @@
-
 import { GoogleGenAI } from "@google/genai";
 
-if (!process.env.API_KEY) {
-    throw new Error("API_KEY environment variable not set");
-}
-
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 export async function generateImage(prompt: string): Promise<string> {
+    if (!process.env.API_KEY) {
+        throw new Error("API_KEY environment variable not set. Please configure it in your deployment environment.");
+    }
+
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+
     try {
         const response = await ai.models.generateImages({
             model: 'imagen-4.0-generate-001',
